@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      textColor:{ 
+        // 'primary': '#7e1687',
+        // 'secondary': '#213ad9',
+
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
