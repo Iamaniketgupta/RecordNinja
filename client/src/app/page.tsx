@@ -1,9 +1,6 @@
 import Hero from "@/_components/HomePage/Hero";
 import Header from "../_components/common/Header";
-import Testimonial from "../_components/HomePage/Testimonial";
-import Footer from "../_components/HomePage/Footer";
-import FAQ from "../_components/HomePage/FAQ";
-import Marquee from "../_components/HomePage/Marquee";
+
 export default function Home() {
   return (
     <div className="relative">
