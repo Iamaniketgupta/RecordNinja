@@ -6,7 +6,7 @@ import FAQ from "../_components/HomePage/FAQ";
 import Marquee from "../_components/HomePage/Marquee";
 export default function Home() {
   return (
-    <div className="">
+    <div className="relative">
       <header>
         <Header />
       </header>
@@ -14,7 +14,7 @@ export default function Home() {
         <Hero />
       </main>
 
-      <footer className="bg-gray-50 absolute w-full bottom-0 ">
+      <footer className="bg-gray-50 lg:fixed mt-20 w-full bottom-0 ">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="sm:flex sm:items-center sm:justify-between">
             <div className="flex justify-center  text-stone-500 sm:justify-start">
@@ -27,6 +27,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
     </div>
 
   );
