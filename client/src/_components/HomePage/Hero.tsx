@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
       {/* Hero Background */}
       <div className="px-6 lg:px-8 mt-10 md:mt-20 h-full flex items-center justify-center">
         {/* Main Content */}
-        <div className="mx-auto w-full text-center max-w-4xl mx-auto">
+        <div className="mx-auto w-full text-center max-w-4xl ">
           <h1 className="md:text-5xl max-sm:text-left max-sm:text-3xl text-4xl font-bold leading-[1.2] tracking-tight text-gray-900 dark:text-white">
             Capture Your Screen with Ease Using Our 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-800 dark:text-blue-400"> Free Online Recorder</span>
