@@ -1,16 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { CiMenuFries } from "react-icons/ci";
+import React from "react";
 import Link from "next/link";
-import { FaCross, FaGithub, FaLinkedin } from "react-icons/fa";
-
-
-interface NavItem {
-  label: string;
-  href: string;
-}
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 
 const Header: React.FC = () => {
