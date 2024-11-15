@@ -6,17 +6,18 @@ import React from "react";
  */
 export const getScreenStream = async (): Promise<MediaStream> => {
   try {
-    const screenStream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
-    });
-
-   
+  
     const audioStream = await navigator.mediaDevices.getUserMedia({
       audio: {
         echoCancellation: true,
         noiseSuppression: true,
         sampleRate: 44100,
       },
+    });
+
+    const screenStream = await navigator.mediaDevices.getDisplayMedia({
+      video: true,
+      
     });
 
     
@@ -48,7 +49,6 @@ export const startMediaRecorder = (
 
   const recorder = new MediaRecorder(stream);
   setRecordingChunks([]);
-  console.log("REcor", recorder)
   setMediaRecorder(recorder);
   recorder.ondataavailable = (event: BlobEvent) => {
     setRecordingChunks((prev) => [...prev, event.data]);
@@ -56,7 +56,6 @@ export const startMediaRecorder = (
   };
   recorder.start(1000);
 
-  console.log("Recording started");
 };
 
 /**
@@ -72,8 +71,6 @@ export const stopMediaRecording = (
 ): string => {
   if (mediaRecorder) {
     mediaRecorder.stop();
-    console.log("Recording stopped");
-    console.log(recordingChunks);
     if (!recordingChunks.length) return "";
 
     const recordedBlob = new Blob(recordingChunks, { type: "video/mp4" });
@@ -93,12 +90,10 @@ export const togglePauseMediaRecorder = (mediaRecorder: MediaRecorder | null, se
   if (mediaRecorder) {
     if (mediaRecorder.state === "recording") {
       mediaRecorder.pause();
-      console.log("Recording paused");
       setIsRecording(false);
     } else if (mediaRecorder.state === "paused") {
       mediaRecorder.resume();
       setIsRecording(true);
-      console.log("Recording resumed");
     }
   }
 };
@@ -131,5 +126,4 @@ export const toggleMic = (
   });
 
   setAudioMuted(!isCurrentlyMuted);
-  console.log(isCurrentlyMuted ? "Microphone unmuted" : "Microphone muted");
 };

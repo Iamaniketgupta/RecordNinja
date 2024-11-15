@@ -1,7 +1,7 @@
 "use client";
 import Player from '@/_components/screenRecorder/Player'
 import Tools from '@/_components/screenRecorder/Tools'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function Page() {
     const [stream, setStream] = useState<MediaStream | null>(null);
@@ -10,20 +10,38 @@ export default function Page() {
     const [audioMuted, setAudioMuted] = useState<boolean>(false);
     const [isRecording, setIsRecording] = useState<boolean>(true)
     const [downloadUrl, setDownloadUrl] = useState<string>("")
-    console.log(downloadUrl?.split("blob:")[1])
+
+
+    useEffect(() => {
+        if (stream) {
+            stream.getTracks().forEach((track) => {
+                track.onended = () => {
+                    console.log("Screen sharing stopped");
+                    setStream(null); 
+                };
+            });
+        }
+        return () => {
+            if (stream) {
+                stream.getTracks().forEach((track) => track.stop());
+            }
+        };
+    }, [stream]);
+
     return (
-        <div className='dark:bg-stone-900 bg-slate-100 relative h-screen w-screen overflow-clip'>
+        <div className='dark:bg-stone-900 bg-gradient-to-r from-cyan-600 to-blue-500 bg-slate-100 relative h-screen w-screen overflow-clip'>
             <div className='h-full w-full absolute'>
                 {/* Topbar */}
-                <div className='h-16 bg-white  p-4 dark:bg-stone-800 m-4 rounded-xl flex items-center justify-between shadow-3xl'>
-                    <button className='rounded-full border-2 px-8 py-2 text-sm font-semibold hover:bg-indigo-500 hover:text-white border-indigo-500'>
+                <div className='h-16   p-4  m-4 rounded-xl flex items-center justify-between shadow-3xl'>
+                    <button onClick={() => window.history.back()} className='rounded-full  px-8 bg-gradient-to-r from-indigo-500 to-pink-600 text-white
+                    py-2 text-sm font-semibold hover:bg-gradient-to-r hover:to-indigo-500 hover:from-pink-600 hover:text-white '>
                         Back
                     </button>
                 </div>
 
                 {/* Video Area*/}
 
-                {!downloadUrl && <div className='m-5 rounded-xl h-[70%] mx-auto w-[60%] bg-white p-4'>
+                {!downloadUrl && <div className='m-5 rounded-xl h-[70%] mx-auto max-w-4xl bg-gradient-to-r from-indigo-500 to-stone-900 overflow-clip p-2 '>
                     <Player setStream={setStream} stream={stream} />
                 </div>}
 
@@ -35,13 +53,15 @@ export default function Page() {
                         </div>
 
                         <div className='w-full min-h-full flex flex-col gap-4 items-center justify-center'>
-                            <a href={downloadUrl} download='recording.mp4' className=' w-full text-center rounded-lg px-8 py-2 bg-indigo-600 hover:bg-indigo-400 text-white text-sm font-semibold'>
+                            <a href={downloadUrl} download='recording.mp4' 
+                            className=' w-full text-center rounded-lg 
+                            hover:bg-gradient-to-r hover:to-indigo-500 hover:from-blue-600 px-8 py-3 bg-gradient-to-r from-indigo-700 to-blue-600 hover:bg-indigo-400 text-white text-sm font-semibold'>
                                 Download
                             </a>
                             <button onClick={() => {
                                 URL.revokeObjectURL(downloadUrl)
                                 setDownloadUrl("")
-                            }} className='rounded-lg px-8 py-2 w-full bg-red-500 hover:bg-red-700 text-white text-sm font-semibold'>
+                            }} className='rounded-lg px-8 py-3 w-full bg-red-500 hover:bg-red-700 text-white text-sm font-semibold'>
                                 Cancel
                             </button>
                         </div>
@@ -53,7 +73,7 @@ export default function Page() {
 
                 {/* Toolbar */}
                 {
-                    !downloadUrl && <div className='h-16 bg-white  p-4 dark:bg-stone-800 m-4 rounded-xl  shadow-3xl'>
+                    !downloadUrl && <div className='h-16 bg-white  p-4 dark:bg-stone-800 m-4 rounded-xl max-w-4xl mx-auto text-5xl  shadow-3xl'>
                         <Tools
                             setDownloadUrl={setDownloadUrl}
                             stream={stream} audioMuted={audioMuted}

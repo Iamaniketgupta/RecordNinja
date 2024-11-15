@@ -5,7 +5,7 @@ import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
 import Link from "next/link";
 import { FaCross } from "react-icons/fa";
- // Assume `userData` atom is imported here
+// Assume `userData` atom is imported here
 // import { useDarkMode } from "../../../Contexts/DarkModeWrapper"; Uncomment and define if using custom context
 
 interface NavItem {
@@ -29,85 +29,45 @@ const Header: React.FC = () => {
   };
 
   return (
-    <nav className={`sticky top-0 z-[100] py-3 shadow-sm border-neutral-700/80 ${mobileDrawerOpen ? "max-sm:dark:bg-stone-900 max-sm:bg-white" : ""}`}>
-      <div className="container px-4 mx-auto relative lg:text-sm">
+   
+    <header>
+      <div className="bg-gradient-to-r from-indigo-500 px-2 to-pink-600 text-white text-center items-center justify-center text-sm flex gap-3">
+          <p className='p-4 text-center font-medium'>Download Record Ninja Extension for your browser</p>
+          <div className="flex items-center justify-center gap-x-6">
+            <Link
+              href="#"
+              className="rounded-full flex 
+                      items-center justify-center  gap-4 w-20 min-w-fit  bg-gradient-to-r from-stone-600 to-stone-700 px-4 py-2 text-xs  font-semibold text-white shadow-sm hover:bg-blue-500 dark:hover:bg-blue-400"
+            >
+
+              <span>Download</span>
+            </Link>
+
+        </div>
+
+      </div>
+
+
+      <nav className="h-18 px-8 sticky top-10 mt-3  w-[90%] mx-auto z-[100] bg-gray-0 rounded-full p-5 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-10 border border-gray-200 shadow-md">
         <div className="flex justify-between items-center">
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <div className="text-2xl md:pl-2 text-blue-600 font-bold">
-              👋<span className="text-gray-700 ml-2 dark:text-gray-100">Record</span> <span className="text-indigo-700 ml-2 dark:text-indigo-700">Ninja</span>
-            </div>
+          <Link href="/" className="text-gray-800 font-semibold text-lg hover:text-gray-900">
+            Record Ninja
           </Link>
-          <ul className="hidden lg:flex ml-14 space-x-12">
-            {navItems.map((item, index) => (
-              <li key={index}>
-                <Link href={item.href}>{item.label}</Link>
-              </li>
-            ))}
-          </ul>
-          <div className="hidden lg:flex justify-center space-x-4 items-center">
-            {/* {!mode ? (
-              <MdDarkMode className="text-2xl text-stone-800 dark:text-gray-100 cursor-pointer" onClick={toggleMode} />
-            ) : (
-              <MdLightMode className="text-2xl text-stone-800 dark:text-gray-100 cursor-pointer" onClick={toggleMode} />
-            )} */}
-          </div>
-          <div className="lg:hidden md:flex flex-col justify-end">
-            <div className="flex space-x-4">
-              {/* {!mode ? (
-                <MdDarkMode className="text-2xl text-stone-800 dark:text-gray-100 cursor-pointer" onClick={toggleMode} />
-              ) : (
-                <MdLightMode className="text-2xl text-stone-800 dark:text-gray-100 cursor-pointer" onClick={toggleMode} />
-              )} */}
-              <button onClick={toggleNavbar}>
-                {mobileDrawerOpen ? <FaCross/> : <CiMenuFries />}
-              </button>
-            </div>
+          <div className="flex items-center space-x-4 max-sm:hidden">
+            <Link href="#features" className="text-gray-700 hover:text-gray-900">
+              Features
+            </Link>
+            <Link href="#pricing" className="text-gray-700 hover:text-gray-900">
+              Pricing
+            </Link>
+            <Link href="#contact" className="text-gray-700 hover:text-gray-900">
+              Contact
+            </Link>
           </div>
         </div>
-        {mobileDrawerOpen && (
-          <div className="fixed right-0 shadow-md z-50 dark:text-white dark:bg-stone-900 bg-white w-full p-12 flex flex-col lg:hidden">
-            <ul>
-              {navItems.map((item, index) => (
-                <li key={index} className="py-4">
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-            {/* Uncomment this section if you need user login/logout functionality */}
-            {/* 
-            <div className="flex space-x-6 z-50">
-              {currUser ? (
-                <>
-                  <button onClick={() => {
-                    logoutUser().then((res) => {
-                      if (res) {
-                        setCurrUser(null);
-                        navigate("/login");
-                      }
-                    });
-                  }} className="py-2 px-3 border rounded-md">
-                    Log out
-                  </button>
-                  <button onClick={() => navigate("/dashboard")} className="py-2 px-3 border rounded-md bg-blue-700 text-white font-semibold">
-                    Dashboard
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button className="py-2 px-3 border text-xs rounded-md">
-                    Log in
-                  </button>
-                  <Link to="/signup" className="py-2 px-3 text-xs rounded-md bg-gradient-to-r from-blue-500 to-blue-800">
-                    Create an account
-                  </Link>
-                </>
-              )}
-            </div> 
-            */}
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </header>
+
   );
 };
 
