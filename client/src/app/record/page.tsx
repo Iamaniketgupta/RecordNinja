@@ -1,6 +1,7 @@
 "use client";
 import Player from '@/_components/screenRecorder/Player'
 import Tools from '@/_components/screenRecorder/Tools'
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 export default function Page() {
@@ -33,10 +34,10 @@ export default function Page() {
             <div className='h-full w-full absolute'>
                 {/* Topbar */}
                 <div className='h-16   p-4  m-4 rounded-xl flex items-center justify-between shadow-3xl'>
-                    <button onClick={() => window.history.back()} className='rounded-full  px-8 bg-gradient-to-r from-indigo-500 to-pink-600 text-white
+                    <Link href="/" className='rounded-full  px-8 bg-gradient-to-r from-indigo-500 to-pink-600 text-white
                     py-2 text-sm font-semibold hover:bg-gradient-to-r hover:to-indigo-500 hover:from-pink-600 hover:text-white '>
-                        Back
-                    </button>
+                        Home
+                    </Link>
                 </div>
 
                 {/* Video Area*/}

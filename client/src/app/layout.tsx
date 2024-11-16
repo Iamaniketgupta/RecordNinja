@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     ],
   },
   
+  
 };
 
 
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
-      <meta name="google-site-verification" content="BsCmAXmYLwMkOiWRRrSMXCa7V0RS9ZuYmR8ZDZzb5MM" />
+        <meta name="google-site-verification" content="BsCmAXmYLwMkOiWRRrSMXCa7V0RS9ZuYmR8ZDZzb5MM" />
       </Head>
       <body className="dark:bg-stone-900">
         {children}
