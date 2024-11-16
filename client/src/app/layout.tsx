@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "RecordNinja - Online free screen recorder",
@@ -33,6 +34,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+      <meta name="google-site-verification" content="BsCmAXmYLwMkOiWRRrSMXCa7V0RS9ZuYmR8ZDZzb5MM" />
+      </Head>
       <body className="dark:bg-stone-900">
         {children}
         <div id="modal-root "></div>
