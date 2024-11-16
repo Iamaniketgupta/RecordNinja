@@ -1,9 +1,6 @@
 # RecordNinja  
 
-© Aniket Gupta, 2024. All rights reserved.  
-This code is proprietary and cannot be used, copied, modified, or distributed without explicit permission.  
-
-RecordNinja is a powerful, sleek, and efficient tool designed to streamline your recording management and tracking needs. It combines an intuitive user interface with robust functionality, making it easy for individuals and businesses to organize and analyze recordings effectively.  
+RecordNinja is a powerful, sleek, and efficient tool designed to streamline your screen recording management and tracking needs. It combines an intuitive user interface with robust functionality, making it easy for individuals and businesses to record and download HD recordings effectively.  
 
 ---
 
@@ -43,11 +40,11 @@ Ensure you have the following installed on your system:
 2. **Install Dependancies**
    ```bash  
    npm install  
-  ```
-3.   **Run the Server**
+   ```
+3. **Run the Server**
    ```bash  
    npm run dev  
-  ```
+   ```
 
 ## Screenshots
 
