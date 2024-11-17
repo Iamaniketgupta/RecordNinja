@@ -30,6 +30,7 @@ export default function Tools({
 }: ToolsProps) {
     const [time, setTime] = useState<number>(0);
     const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
+    const [startTimerDuration, setStartTimerDuration] = useState<number | null>(null);
 
     // Format time 
     const formatTime = (time: number) => {
@@ -65,13 +66,34 @@ export default function Tools({
     }, [isRecording, pauseTimer]);
 
     useEffect(() => {
-        if (!stream) {
-            if (mediaRecorder) {
-                const downloadUrl = stopMediaRecording(mediaRecorder, setMediaRecorder, recordingChunks);
-                setDownloadUrl(downloadUrl);
+        if (!stream && mediaRecorder) {
+          const stopAndSaveRecording = async () => {
+            try {
+              const downloadUrl = await stopMediaRecording(
+                mediaRecorder,
+                setMediaRecorder,
+                recordingChunks,
+                startTimerDuration
+              );
+              setDownloadUrl(downloadUrl);
+            } catch (error) {
+              console.error("Error stopping recording:", error);
             }
+          };
+      
+          stopAndSaveRecording(); 
         }
-    }, [mediaRecorder, recordingChunks, resetTimer, setDownloadUrl, setIsRecording, setMediaRecorder, stream]);
+      }, [
+        mediaRecorder,
+        recordingChunks,
+        resetTimer,
+        setDownloadUrl,
+        setIsRecording,
+        setMediaRecorder,
+        stream,
+        startTimerDuration,
+      ]);
+      
 
 
     return (
@@ -82,7 +104,7 @@ export default function Tools({
                 <div
                     onClick={() => {
                         if (!stream) return;
-                        startMediaRecorder(stream, setMediaRecorder, setRecordingChunks);
+                        startMediaRecorder(stream, setMediaRecorder, setRecordingChunks,setStartTimerDuration);
                         startTimer();
                     }}
                     className='bg-gradient-to-r from-pink-600  to-indigo-600 text-sm text-white font-semibold cursor-pointer hover:bg-gradient-to-r hover:from-pink-500 hover:to-indigo-600 flex flex-row-reverse pl-3 items-center gap-2 overflow-clip rounded-full'>
@@ -97,17 +119,29 @@ export default function Tools({
             ) : (
                 <div className='pr-3 flex text-sm bg-slate-200 items-center gap-2 overflow-clip rounded-full'>
                     <button
-                        title='Stop Recording'
-                        onClick={() => {
+                        title="Stop Recording"
+                        onClick={async () => {
                             if (!mediaRecorder) return;
-                            const downloadUrl = stopMediaRecording(mediaRecorder, setMediaRecorder, recordingChunks);
-                            setDownloadUrl(downloadUrl);
-                            resetTimer();
+
+                            try {
+                                const downloadUrl = await stopMediaRecording(
+                                    mediaRecorder,
+                                    setMediaRecorder,
+                                    recordingChunks,
+                                    startTimerDuration
+                                );
+                                setDownloadUrl(downloadUrl);
+                                resetTimer();
+                                setStartTimerDuration(null);
+                            } catch (error) {
+                                console.error("Failed to stop recording:", error);
+                            }
                         }}
-                        className='bg-red-600 hover:bg-red-700 font-semibold text-white px-4 py-2 rounded-full'
+                        className="bg-red-600 hover:bg-red-700 font-semibold text-white px-4 py-2 rounded-full"
                     >
                         Stop Recording
                     </button>
+
                     <span className='font-semibold'>{formatTime(time)}</span>
                 </div>
             )}

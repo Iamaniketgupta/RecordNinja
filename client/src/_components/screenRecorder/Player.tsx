@@ -7,7 +7,6 @@ export default function Player({ stream ,setStream}: { stream: MediaStream | nul
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.srcObject = stream;
-            videoRef.current.play();
         }
     }, [stream]);
     return (

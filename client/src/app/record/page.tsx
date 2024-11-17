@@ -2,7 +2,7 @@
 import Player from '@/_components/screenRecorder/Player'
 import Tools from '@/_components/screenRecorder/Tools'
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function Page() {
     const [stream, setStream] = useState<MediaStream | null>(null);
@@ -11,7 +11,6 @@ export default function Page() {
     const [audioMuted, setAudioMuted] = useState<boolean>(false);
     const [isRecording, setIsRecording] = useState<boolean>(true)
     const [downloadUrl, setDownloadUrl] = useState<string>("")
-
 
     useEffect(() => {
         if (stream) {
@@ -28,9 +27,10 @@ export default function Page() {
             }
         };
     }, [stream]);
-
+   
     return (
         <div className='dark:bg-stone-900 bg-gradient-to-r from-cyan-600 to-blue-500 bg-slate-100 relative h-screen w-screen overflow-clip'>
+            
             <div className='h-full w-full absolute'>
                 {/* Topbar */}
                 <div className='h-16   p-4  m-4 rounded-xl flex items-center justify-between shadow-3xl'>
@@ -50,7 +50,7 @@ export default function Page() {
                 {downloadUrl &&
                     <div className='grid grid-cols-4 gap-4 rounded-3xl p-4 m-5'>
                         <div className='w-[80%] col-span-3 my-4 h-auto min-h-fit'>
-                            <video src={downloadUrl} controls></video>
+                            <video src={downloadUrl} autoPlay={true} controls />
                         </div>
 
                         <div className='w-full min-h-full flex flex-col gap-4 items-center justify-center'>
