@@ -1,7 +1,7 @@
 import React from "react";
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile } from '@ffmpeg/util';
 import fixWebmDuration from "fix-webm-duration";
+
+
 /**
  * Requests screen capture media stream.
  * @returns {Promise<MediaStream>} A promise that resolves to the media stream.
